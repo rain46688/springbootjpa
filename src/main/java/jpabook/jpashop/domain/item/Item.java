@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain.item;
 
 import jpabook.jpashop.domain.Category;
+import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,4 +35,24 @@ public abstract class Item {
     // 안쓰는 이유는 중간 매핑 테이블에 다른 값을 넣을수가 없음!!
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+
+    // 이런 값을 수정하는 메소드들은 이 안에서 처리하는게 맞음
+    // 밖에서 세터 게터로 이러는건 맞지 않다고 함
+    // 이렇게 설계해야 객체 지향적으로 설계하는것임
+    
+    // 재고 증가
+    public void addStock(int quantity){
+        this.stockQuantity = this.stockQuantity + quantity;
+    }
+
+    // 재고 감소
+    public void removeStock(int quantity){
+        int restStock = this.stockQuantity - quantity;
+        // 재고가 0 이하로 됬을 경우 예외 생성
+        if(restStock < 0){
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = restStock;
+    }
 }
