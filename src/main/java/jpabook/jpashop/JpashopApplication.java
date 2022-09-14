@@ -14,6 +14,7 @@ public class JpashopApplication {
 //		String data = hello.getData();
 //		System.out.println("data = " + data);
 
+		// h2 디비 무조건 켜야 실행됨 안그러면 서버 안 올라감
 		SpringApplication.run(JpashopApplication.class, args);
 	}
 
