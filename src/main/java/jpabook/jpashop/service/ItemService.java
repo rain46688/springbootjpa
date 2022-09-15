@@ -22,6 +22,8 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    // @Transactional 어노테이션 안에서 조회하는 객체들은 영속성 컨텍스트라 set으로 수정해도 바로 변경 감지가 일어나서 자동 업데이트를 jpa가 해준다.
+
     // 기존에 방법은 등록이건 수정이건 saveItem을 호출하고 내부에서 if(item.getId() == null) 즉 아이디 값이 없으면
     // 있으면 수정이고 없으면 등록인것이라 이렇게 구분해서 persist 할지 merge를 할지를 나눈것
     // 하지만 merge는 사용할때 주의해야되는게 엔티티에 값이 없는 프로퍼티들은 다 null로 해서 들어감 싹 디비가 갈아쳐버리는다는것

@@ -21,7 +21,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    // 등록 폼 보여주기
+    // 멤버 등록 폼 생성
     @GetMapping("/members/new")
     public String createForm(Model model){
         // 실무에서는 바로 Member엔티티를 사용하지 않고
@@ -32,7 +32,7 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
-    // 등록 폼 데이터 추가하기
+    // 멤버 등록
     @PostMapping("/members/new")
     public String create(@Valid MemberForm memberForm, BindingResult result){
         
@@ -55,7 +55,7 @@ public class MemberController {
         return "redirect:/";
     }
 
-    // 멤버 조회하는 로직
+    // 멤버 조회
     @GetMapping("/members")
     public String list(Model model){
         log.info("members");
