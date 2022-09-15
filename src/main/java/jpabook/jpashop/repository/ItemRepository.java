@@ -15,12 +15,13 @@ public class ItemRepository {
 
     // 아이템 등록
     // 이부분 Member랑 다르게 if문으로 나눈 이유는 나중에 설명해준다함
+    // merge는 사용안하는게 좋다
     public void save(Item item){
-        if(item.getId() == null){
+       // if(item.getId() == null){
             em.persist(item);
-        }else{
-            em.merge(item);
-        }
+//        }else{
+//            em.merge(item);
+//        }
     }
 
     // 아이템 하나 찾기
