@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class itemController {
@@ -38,4 +40,14 @@ public class itemController {
         itemService.saveItem(book);
         return "redirect:/";
     }
+
+    // 상품 리스트 조회
+    @GetMapping("/items")
+    public String list(Model model){
+        List<Item> items = itemService.findItems();
+        model.addAttribute("items",items);
+        return "items/itemList";
+    }
+
+
 }
