@@ -3,7 +3,6 @@ package jpabook.jpashop.repository;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -62,6 +61,18 @@ public class OrderRepository {
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대 1000건
         return query.getResultList();
+    }
+
+
+/*
+* V3. 엔티티를 조회해서 DTO로 변환(fetch join 사용O) 추가 코드
+* */
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                        "select o from Order o" +
+                                " join fetch o.member m" +
+                                " join fetch o.delivery d", Order.class)
+                .getResultList();
     }
 
 

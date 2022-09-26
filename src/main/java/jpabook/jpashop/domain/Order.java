@@ -34,6 +34,7 @@ public class Order {
     //Entity의 상태 변화를 전파시키는 옵션이다.
     //만약 Entity의 상태 변화가 있으면 연관되어 있는(ex. @OneToMany, @ManyToOne) Entity에도 상태 변화를 전이시키는 옵션이다.
     //기본적으로는 아무 것도 전이시키지 않는다.
+    // 1대다는 기본이 (fetch = FetchType.LAZY) 옵션임
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
