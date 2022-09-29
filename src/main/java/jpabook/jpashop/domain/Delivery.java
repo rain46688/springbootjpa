@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ public class Delivery {
     // FK를 Delivery에 두던 Order에 두던 상관이 없지만 자주 사용하는 테이블에 두는게 좋다
     // 보통 Order를 조회해서 Delivery를 찾기 때문에 여기를 짭으로 선언함!
     @OneToOne(mappedBy = "delivery",fetch = FetchType.LAZY)
+    @JsonIgnore
     private Order order;
 
     @Embedded

@@ -75,5 +75,30 @@ public class OrderRepository {
                 .getResultList();
     }
 
+    /* v3 api 고급 개발 부분 orders 
+    * distinct 키워드를 넣으면 우리가 디비에 넣는것처럼 select문 부분에 넣어줌
+    * 그래서 객체를 중복으로 받아오지 않고 하나씩만 가져와서 내부 객체를 매칭함
+    * 그러나 실 디비에 쿼리가 나갈때 distinct는 소용이 없음 디비에서는 완벽히 같아서 중복 제거가되는데
+    * 그게 아니기 때문임 어찌저찌 jpa가 보고 중복을 걸러서 컬렉션에 담아주게됨
+    * */
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                        "select distinct o from Order o" +
+                                " join fetch o.member m" +
+                                " join fetch o.delivery d" +
+                                " join fetch o.orderItems oi" +
+                                " join fetch oi.item i", Order.class)
+                .getResultList();
+    }
 
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                        "select o from Order o" +
+                                " join fetch o.member m" +
+                                " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
